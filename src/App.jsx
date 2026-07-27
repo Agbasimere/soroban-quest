@@ -20,6 +20,7 @@ import { GameStateProvider } from "./systems/GameStateContext";
 import LoadingScreen from "./components/LoadingScreen";
 import { loadProgress, saveProgress } from "./systems/storage";
 import { updateStreak } from "./systems/gameEngine";
+import { scheduleCloudSync } from "./systems/cloudSync";
 import "./systems/Toast.css";
 
 // Lazy load page components
@@ -33,6 +34,7 @@ export default function App() {
     const state = loadProgress();
     const newState = updateStreak(state);
     saveProgress(newState);
+    scheduleCloudSync();
   }, []);
 
   return (

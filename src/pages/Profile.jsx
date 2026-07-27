@@ -5,11 +5,7 @@ import "./Profile.css";
 import {
   importProgress,
   exportProgress,
-  resetProgress,
-  loadProfile,
-  saveProfile,
   readAndValidateFile,
-  getDefaultState,
   defaultProfile,
 } from "../systems/storage";
 
@@ -22,6 +18,8 @@ import { useToast } from "../systems/ToastContext";
 import { useGameState } from "../systems/GameStateContext";
 import { logActivity, ACTIVITY_TYPES } from "../systems/activityLogger";
 import useDocumentTitle from '../systems/useDocumentTitle';
+import { authService } from "../systems/authService";
+import { cloudSyncService, resetCloudSyncStatus } from "../systems/cloudSync";
 import { useTranslation } from "../i18n/useTranslation";
 
 // Total rank entries: 0..10. Anything >= 10 maps to the last rank.
@@ -52,11 +50,33 @@ export default function Profile() {
   const fileInputRef = useRef(null);
 
   const [importPreview, setImportPreview] = useState(null);
+  const [authForm, setAuthForm] = useState({ email: "", username: "" });
+  const [syncMessage, setSyncMessage] = useState("Cloud sync is off until you sign in.");
+  const [syncStatus, setSyncStatus] = useState(cloudSyncService.getStatus());
 
   const xpProgress = getXPProgress(state);
   const rankIndex = Math.min(Math.max(state.level - 1, 0), MAX_RANK_INDEX);
   const rankTitle = t(`ranks.${rankIndex}`);
   const missions = getAllMissions(language);
+
+  const refreshSyncUi = () => {
+    const currentUser = authService.getCurrentUser();
+    setSyncStatus(cloudSyncService.getStatus());
+
+    if (currentUser) {
+      setSyncMessage(`Connected as ${currentUser.username || currentUser.email}.`);
+    } else {
+      setSyncMessage("Cloud sync is off until you sign in.");
+    }
+  };
+
+  useEffect(() => {
+    refreshSyncUi();
+    const currentUser = authService.getCurrentUser();
+    if (currentUser) {
+      setAuthForm((prev) => ({ ...prev, email: currentUser.email || "", username: currentUser.username || "" }));
+    }
+  }, []);
 
   /* ---------------- SAVE PROFILE ---------------- */
   const saveUserProfile = () => {
@@ -167,6 +187,47 @@ export default function Profile() {
       setImportStatus(t("profile.data.status.resetDone"));
       setTimeout(() => setImportStatus(""), 3000);
     }
+  };
+
+  const handleAuthSubmit = async (mode) => {
+    const email = authForm.email.trim();
+    const username = authForm.username.trim();
+
+    if (!email) {
+      setSyncMessage("Please enter an email address to enable cloud sync.");
+      return;
+    }
+
+    try {
+      const user = mode === "signup" ? authService.signUp(email, username) : authService.signIn(email, username);
+      await cloudSyncService.migrateLocalData();
+      setAuthForm({ email: "", username: "" });
+      setSyncStatus(cloudSyncService.getStatus());
+      setSyncMessage(`Cloud sync enabled for ${user.username || user.email}.`);
+      showToast("Cloud sync enabled for your profile.", "success");
+    } catch (error) {
+      setSyncMessage(error.message || "Cloud sync could not be enabled.");
+      showToast(error.message || "Cloud sync could not be enabled.", "error");
+    }
+  };
+
+  const handleSyncNow = async () => {
+    try {
+      await cloudSyncService.syncLocalToCloud();
+      refreshSyncUi();
+      showToast("Progress synced to cloud storage.", "success");
+    } catch (error) {
+      setSyncMessage(error.message || "Cloud sync failed.");
+      showToast(error.message || "Cloud sync failed.", "error");
+    }
+  };
+
+  const handleSignOut = () => {
+    authService.signOut();
+    resetCloudSyncStatus();
+    refreshSyncUi();
+    setSyncMessage("Signed out. Your progress remains stored locally.");
+    showToast("Signed out from cloud sync.", "success");
   };
 
   const completedMissions = missions.filter((m) =>
@@ -393,6 +454,44 @@ export default function Profile() {
             </div>
           ))
         )}
+      </div>
+
+      <div className="card profile-sync-card">
+        <div className="profile-space-between">
+          <div>
+            <h3 className="profile-section-title" style={{ marginBottom: 0 }}>Cloud Sync</h3>
+            <p className="profile-selector-help">{syncMessage}</p>
+          </div>
+          <span className={`sync-status-pill ${syncStatus === "synced" ? "success" : syncStatus === "syncing" ? "syncing" : syncStatus === "offline" ? "offline" : "idle"}`}>
+            {syncStatus}
+          </span>
+        </div>
+
+        <div className="profile-sync-form">
+          <input
+            className="profile-input-full"
+            type="email"
+            placeholder="Email"
+            value={authForm.email}
+            onChange={(e) => setAuthForm((prev) => ({ ...prev, email: e.target.value }))}
+          />
+          <input
+            className="profile-input-full"
+            type="text"
+            placeholder="Display name"
+            value={authForm.username}
+            onChange={(e) => setAuthForm((prev) => ({ ...prev, username: e.target.value }))}
+          />
+
+          <div className="flex gap-2 mt-3">
+            <button type="button" className="btn btn-secondary" onClick={() => handleAuthSubmit("signin")}>Sign in</button>
+            <button type="button" className="btn btn-secondary" onClick={() => handleAuthSubmit("signup")}>Sign up</button>
+            <button type="button" className="btn btn-ghost" onClick={handleSyncNow}>Sync now</button>
+            {authService.isAuthenticated() && (
+              <button type="button" className="btn btn-ghost" onClick={handleSignOut}>Sign out</button>
+            )}
+          </div>
+        </div>
       </div>
 
       {/* CONFIGURATION DATA MANAGEMENT */}
