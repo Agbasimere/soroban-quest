@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import Editor from "@monaco-editor/react";
+import Editor from "../components/LazyMonacoEditor";
 import ReactMarkdown from "react-markdown";
 import { getMissionById, getNextMission } from "../systems/missionLoader";
 import { runTests } from "../systems/testRunner";
@@ -18,6 +18,7 @@ import CodeReplayPlayer from "../components/CodeReplayPlayer";
 import CodeRecorder from "../systems/codeRecorder";
 import { useTranslation } from "../i18n/useTranslation";
 import useDocumentTitle from '../systems/useDocumentTitle';
+import { measureRender } from "../systems/performanceMonitor";
 import {
   EDITOR_THEMES,
   registerEditorThemes,
@@ -31,6 +32,10 @@ const MAX_RANK_INDEX = 10;
 
 export default function MissionDetail() {
   useDocumentTitle('Mission Detail');
+  useEffect(() => {
+    const stop = measureRender('MissionDetail');
+    stop();
+  });
   const { missionId } = useParams();
   const navigate = useNavigate();
   const { t, language } = useTranslation();
