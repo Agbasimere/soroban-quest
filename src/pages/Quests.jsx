@@ -120,7 +120,7 @@ export default function Quests() {
         </select>
       </div>
 
-      {/* Mission Card Grid matching UI Reference */}
+
       <div className="quests-grid">
         {filteredMissions.map((mission) => {
           const { title } = getLocalizedMission(mission);
