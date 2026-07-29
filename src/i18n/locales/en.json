@@ -25,6 +25,7 @@
   },
   "navbar": {
     "home": "Home",
+    "quests": "Quests",
     "campaigns": "Campaigns",
     "missions": "Missions",
     "profile": "Profile",
@@ -39,6 +40,21 @@
     "openMenu": "Open navigation menu",
     "closeMenu": "Close navigation menu",
     "replayTutorial": "Replay Tutorial"
+  },
+  "quests": {
+    "title": "Quest Catalog",
+    "subtitle": "Browse, search, and filter all available missions.",
+    "searchPlaceholder": "Search missions...",
+    "allCampaigns": "All Campaigns",
+    "allDifficulties": "All Difficulties",
+    "beginner": "Beginner",
+    "intermediate": "Intermediate",
+    "advanced": "Advanced",
+    "allStatus": "All Status",
+    "completed": "Completed",
+    "incomplete": "Incomplete",
+    "done": "Done",
+    "noResults": "No missions found matching your criteria."
   },
   "home": {
     "badge": "✨ Zero setup • No wallet needed • Open source",

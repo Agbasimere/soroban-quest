@@ -25,6 +25,7 @@
   },
   "navbar": {
     "home": "Inicio",
+    "quests": "Búsquedas",
     "campaigns": "Campañas",
     "missions": "Misiones",
     "profile": "Perfil",
@@ -39,6 +40,21 @@
     "openMenu": "Abrir menú de navegación",
     "closeMenu": "Cerrar menú de navegación",
     "replayTutorial": "Repetir tutorial"
+  },
+  "quests": {
+    "title": "Catálogo de Misiones",
+    "subtitle": "Explora, busca y filtra todas las misiones disponibles.",
+    "searchPlaceholder": "Buscar misiones...",
+    "allCampaigns": "Todas las Campañas",
+    "allDifficulties": "Todas las Dificultades",
+    "beginner": "Principiante",
+    "intermediate": "Intermedio",
+    "advanced": "Avanzado",
+    "allStatus": "Todos los Estados",
+    "completed": "Completadas",
+    "incomplete": "Incompletas",
+    "done": "Hecho",
+    "noResults": "No se encontraron misiones que coincidan con tus criterios."
   },
   "home": {
     "badge": "✨ Sin configuración • Sin billetera • Código abierto",
