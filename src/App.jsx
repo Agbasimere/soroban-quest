@@ -41,6 +41,7 @@ function AppContent() {
     const state = loadProgress();
     const newState = updateStreak(state);
     saveProgress(newState);
+    scheduleCloudSync();
   }, []);
 
   // Register global keyboard shortcuts handler

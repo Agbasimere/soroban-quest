@@ -7,7 +7,6 @@ import {
   loadProfile,
   saveProfile,
   readAndValidateFile,
-  getDefaultState,
   defaultProfile,
 } from '../systems/storage';
 
@@ -447,6 +446,44 @@ export default function Profile() {
             </div>
           ))
         )}
+      </div>
+
+      <div className="card profile-sync-card">
+        <div className="profile-space-between">
+          <div>
+            <h3 className="profile-section-title" style={{ marginBottom: 0 }}>Cloud Sync</h3>
+            <p className="profile-selector-help">{syncMessage}</p>
+          </div>
+          <span className={`sync-status-pill ${syncStatus === "synced" ? "success" : syncStatus === "syncing" ? "syncing" : syncStatus === "offline" ? "offline" : "idle"}`}>
+            {syncStatus}
+          </span>
+        </div>
+
+        <div className="profile-sync-form">
+          <input
+            className="profile-input-full"
+            type="email"
+            placeholder="Email"
+            value={authForm.email}
+            onChange={(e) => setAuthForm((prev) => ({ ...prev, email: e.target.value }))}
+          />
+          <input
+            className="profile-input-full"
+            type="text"
+            placeholder="Display name"
+            value={authForm.username}
+            onChange={(e) => setAuthForm((prev) => ({ ...prev, username: e.target.value }))}
+          />
+
+          <div className="flex gap-2 mt-3">
+            <button type="button" className="btn btn-secondary" onClick={() => handleAuthSubmit("signin")}>Sign in</button>
+            <button type="button" className="btn btn-secondary" onClick={() => handleAuthSubmit("signup")}>Sign up</button>
+            <button type="button" className="btn btn-ghost" onClick={handleSyncNow}>Sync now</button>
+            {authService.isAuthenticated() && (
+              <button type="button" className="btn btn-ghost" onClick={handleSignOut}>Sign out</button>
+            )}
+          </div>
+        </div>
       </div>
 
       {/* CONFIGURATION DATA MANAGEMENT */}
