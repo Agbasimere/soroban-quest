@@ -1,29 +1,30 @@
-import React, { lazy, Suspense, useEffect } from "react";
-import { Routes, Route } from "react-router-dom";
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
+import React, { lazy, Suspense, useEffect } from 'react';
+import { Routes, Route } from 'react-router-dom';
+import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 
-import useScrollToTop from "./hooks/useScrollToTop";
-import { ErrorBoundary } from "./components/ErrorBoundary";
-import { ToastProvider } from "./systems/ToastContext";
-import { GameStateProvider } from "./systems/GameStateContext";
-import LoadingScreen from "./components/LoadingScreen";
-import { loadProgress, saveProgress } from "./systems/storage";
-import { updateStreak } from "./systems/gameEngine";
-import "./systems/Toast.css";
+import useScrollToTop from './hooks/useScrollToTop';
+import { ErrorBoundary } from './components/ErrorBoundary';
+import { ToastProvider } from './systems/ToastContext';
+import { GameStateProvider } from './systems/GameStateContext';
+import LoadingScreen from './components/LoadingScreen';
+import { loadProgress, saveProgress } from './systems/storage';
+import { updateStreak } from './systems/gameEngine';
+import './systems/Toast.css';
 
 // Lazy load page components
-const Home = lazy(() => import("./pages/Home"));
-const MissionMap = lazy(() => import("./pages/MissionMap"));
-const MissionDetail = lazy(() => import("./pages/MissionDetail"));
-const Profile = lazy(() => import("./pages/Profile"));
-const Journal = lazy(() => import("./pages/Journal"));
-const Campaigns = lazy(() => import("./pages/Campaigns"));
-const SkillTree = lazy(() => import("./pages/SkillTree"));
-const Leaderboard = lazy(() => import("./pages/Leaderboard"));
-const Achievements = lazy(() => import("./pages/Achievements"));
-const Shop = lazy(() => import("./pages/Shop"));
-const NotFound = lazy(() => import("./pages/NotFound"));
+const Home = lazy(() => import('./pages/Home'));
+const MissionMap = lazy(() => import('./pages/MissionMap'));
+const MissionDetail = lazy(() => import('./pages/MissionDetail'));
+const Quests = lazy(() => import('./pages/Quests')); // Added Quests page
+const Profile = lazy(() => import('./pages/Profile'));
+const Journal = lazy(() => import('./pages/Journal'));
+const Campaigns = lazy(() => import('./pages/Campaigns'));
+const SkillTree = lazy(() => import('./pages/SkillTree'));
+const Leaderboard = lazy(() => import('./pages/Leaderboard'));
+const Achievements = lazy(() => import('./pages/Achievements'));
+const Shop = lazy(() => import('./pages/Shop'));
+const NotFound = lazy(() => import('./pages/NotFound'));
 
 export default function App() {
   // Global React Router navigation scroll management
@@ -46,6 +47,7 @@ export default function App() {
                 <Routes>
                   <Route path="/" element={<Home />} />
                   <Route path="/missions" element={<MissionMap />} />
+                  <Route path="/quests" element={<Quests />} /> {/* Added /quests route */}
                   <Route path="/campaigns" element={<Campaigns />} />
                   <Route path="/mission/:missionId" element={<MissionDetail />} />
                   <Route path="/profile" element={<Profile />} />
