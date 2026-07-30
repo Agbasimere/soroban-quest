@@ -23,6 +23,33 @@
     "unlocked": "Desbloqueada",
     "skipToContent": "Saltar al contenido principal"
   },
+  "shortcuts": {
+    "title": "Atajos de teclado",
+    "subtitle": "Domina Soroban Quest con combinaciones rápidas",
+    "sections": {
+      "navigation": "Navegación",
+      "editor": "Editor de código",
+      "general": "General"
+    },
+    "nav": {
+      "home": "Ir a Inicio",
+      "campaigns": "Ir a Campañas",
+      "missions": "Ir a Misiones",
+      "profile": "Ir a Perfil",
+      "journal": "Ir a Diario"
+    },
+    "editor": {
+      "runTests": "Ejecutar código / Pruebas",
+      "resetTemplate": "Restablecer plantilla",
+      "showSolution": "Mostrar solución",
+      "toggleHints": "Alternar pistas",
+      "toggleTheme": "Alternar tema del editor"
+    },
+    "general": {
+      "openModal": "Abrir atajos de teclado",
+      "closeModal": "Cerrar cualquier ventana"
+    }
+  },
   "navbar": {
     "home": "Inicio",
     "quests": "Búsquedas",

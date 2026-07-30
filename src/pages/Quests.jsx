@@ -120,7 +120,6 @@ export default function Quests() {
         </select>
       </div>
 
-
       <div className="quests-grid">
         {filteredMissions.map((mission) => {
           const { title } = getLocalizedMission(mission);

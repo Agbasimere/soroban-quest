@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Sun, Moon } from 'lucide-react';
+import { Menu, X, Sun, Moon, Keyboard } from 'lucide-react';
 import { useTranslation } from '../i18n/useTranslation';
 import { useGameState } from '../systems/GameStateContext';
 import LanguageSelector from './LanguageSelector';
 import { resetOnboarding } from './Onboarding';
 
-export default function Navbar() {
+export default function Navbar({ onOpenShortcuts }) {
   const [isOpen, setIsOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
   const location = useLocation();
@@ -140,6 +140,18 @@ export default function Navbar() {
           >
             {theme === 'light' ? <Moon size={20} /> : <Sun size={20} />}
           </button>
+
+          {/* KEYBOARD SHORTCUTS BUTTON */}
+          <button
+            onClick={onOpenShortcuts}
+            className="btn-ghost"
+            style={{ padding: '0.5rem', borderRadius: '50%', cursor: 'pointer', fontSize: '1rem' }}
+            title="Keyboard Shortcuts (? or Ctrl+K)"
+            aria-label="Keyboard Shortcuts"
+          >
+            ⌨️
+          </button>
+
           <span className="text-xl" aria-hidden="true">
             {profile.avatar}
           </span>
@@ -230,6 +242,26 @@ export default function Navbar() {
             >
               {theme === 'light' ? <Moon size={20} /> : <Sun size={20} />}
             </button>
+
+            {/* KEYBOARD SHORTCUTS BUTTON (MOBILE) */}
+            <button
+              onClick={() => {
+                setIsOpen(false);
+                onOpenShortcuts();
+              }}
+              className="btn-ghost"
+              style={{
+                padding: '0.5rem',
+                borderRadius: '50%',
+                fontSize: '1rem',
+                cursor: 'pointer',
+              }}
+              title="Keyboard Shortcuts"
+              aria-label="Keyboard Shortcuts"
+            >
+              <Keyboard size={24} />
+            </button>
+
             <span aria-hidden="true">{profile.avatar}</span>
             <span>{profile.name}</span>
           </div>
