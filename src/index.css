@@ -396,6 +396,21 @@ button {
   font-family: var(--font-body);
 }
 
+/* ============ FOCUS VISIBLE ============ */
+/* Provide a consistent, high-visibility focus ring for all interactive elements */
+:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* Suppress focus ring for mouse users on elements that already have custom styles */
+button:focus:not(:focus-visible),
+a:focus:not(:focus-visible),
+[role="button"]:focus:not(:focus-visible) {
+  outline: none;
+}
+
 /* ============ APP LAYOUT ============ */
 .app {
   display: flex;
@@ -536,6 +551,107 @@ button {
   font-family: var(--font-display);
   font-size: 0.75rem;
   font-weight: 600;
+}
+/* ==========================================
+   Mobile Navigation & Hamburger Menu (#223)
+   ========================================== */
+
+/* Hide hamburger button and mobile menu by default on desktop */
+.hamburger-btn,
+.mobile-menu,
+.backdrop {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  /* Hide desktop links and stats on mobile screens */
+  .navbar-links,
+  .navbar-stats {
+    display: none !important;
+  }
+
+  /* Show hamburger button with required 44x44px touch target */
+  .hamburger-btn {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    min-height: 44px;
+    background: transparent;
+    border: none;
+    color: var(--text-primary);
+    cursor: pointer;
+    z-index: calc(var(--z-navbar) + 2);
+  }
+
+  /* Backdrop overlay */
+  .backdrop {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    z-index: calc(var(--z-navbar) + 1);
+    animation: fadeIn 0.2s ease-out;
+  }
+
+  /* Slide-out mobile drawer menu */
+  .mobile-menu {
+    display: flex !important;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 75%;
+    max-width: 320px;
+    background: var(--bg-secondary);
+    border-left: 1px solid var(--border-subtle);
+    padding: 80px var(--space-lg) var(--space-xl) var(--space-lg);
+    gap: var(--space-sm);
+    z-index: calc(var(--z-navbar) + 2);
+    overflow-y: auto;
+    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
+    transform: translateX(100%);
+    transition: transform var(--transition-base);
+  }
+
+  .mobile-menu.open {
+    transform: translateX(0);
+  }
+
+  /* Style mobile links with minimum 44x44px touch height */
+  .mobile-menu a {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem var(--space-md);
+    min-height: 44px;
+    color: var(--text-secondary);
+    font-size: 1rem;
+    font-weight: 500;
+    border-radius: var(--radius-md);
+    transition: background var(--transition-fast), color var(--transition-fast);
+  }
+
+  .mobile-menu a:hover,
+  .mobile-menu a.active {
+    background: var(--cyan-dim);
+    color: var(--cyan);
+  }
+
+  /* Mobile stats footer inside drawer */
+  .mobile-stats {
+    margin-top: auto;
+    padding-top: var(--space-md);
+    border-top: 1px solid var(--border-subtle);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-sm);
+  }
 }
 
 /* ============ BUTTONS ============ */
@@ -1907,6 +2023,82 @@ button {
   .profile-header {
     flex-direction: column;
     text-align: center;
+  }
+}
+
+/* ============ SKIP TO CONTENT ============ */
+.skip-to-content {
+  position: absolute;
+  top: -100%;
+  left: 1rem;
+  z-index: 9999;
+  padding: 0.6rem 1.2rem;
+  background: var(--cyan);
+  color: var(--bg-primary);
+  font-weight: 700;
+  font-size: 0.9rem;
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  transition: top var(--transition-fast);
+}
+
+.skip-to-content:focus {
+  top: 1rem;
+}
+
+/* ============ SCREEN READER ONLY ============ */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ============ REDUCED MOTION ============ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* Keep skeleton shimmer but make it static */
+  .skeleton::after {
+    animation: none;
+  }
+
+  /* Disable xp bar shimmer */
+  .xp-bar-fill::after {
+    animation: none;
+  }
+
+  /* Disable hero entrance animations */
+  .hero-badge,
+  .hero-title,
+  .hero-subtitle,
+  .hero-actions,
+  .hero-stats {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Disable notfound float */
+  .notfound-card {
+    animation: none;
+  }
+
+  /* Hide the hero starfield canvas for users who prefer reduced motion */
+  .hero-particles {
+    display: none;
   }
 }
 
