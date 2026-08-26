@@ -1,7 +1,5 @@
 import React, { lazy, Suspense, useEffect, useState } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
-import React, { lazy, Suspense, useEffect } from 'react';
-import { Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 
@@ -20,6 +18,7 @@ import './systems/Toast.css';
 const Home = lazy(() => import('./pages/Home'));
 const MissionMap = lazy(() => import('./pages/MissionMap'));
 const MissionDetail = lazy(() => import('./pages/MissionDetail'));
+const TheoryQuestDetail = lazy(() => import('./pages/TheoryQuestDetail'));
 const Quests = lazy(() => import('./pages/Quests')); // Added Quests page
 const Profile = lazy(() => import('./pages/Profile'));
 const Journal = lazy(() => import('./pages/Journal'));
@@ -83,6 +82,7 @@ function AppContent() {
             <Route path="/quests" element={<Quests />} />
             <Route path="/campaigns" element={<Campaigns />} />
             <Route path="/mission/:missionId" element={<MissionDetail />} />
+            <Route path="/theory/:questId" element={<TheoryQuestDetail />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/journal" element={<Journal />} />
             <Route path="/skills" element={<SkillTree />} />
@@ -105,28 +105,6 @@ export default function App() {
       <ToastProvider>
         <GameStateProvider>
           <AppContent />
-          <div className="app">
-            <Navbar />
-            <main className="main-content">
-              <Suspense fallback={<LoadingScreen />}>
-                <Routes>
-                  <Route path="/" element={<Home />} />
-                  <Route path="/missions" element={<MissionMap />} />
-                  <Route path="/quests" element={<Quests />} /> {/* Added /quests route */}
-                  <Route path="/campaigns" element={<Campaigns />} />
-                  <Route path="/mission/:missionId" element={<MissionDetail />} />
-                  <Route path="/profile" element={<Profile />} />
-                  <Route path="/journal" element={<Journal />} />
-                  <Route path="/skills" element={<SkillTree />} />
-                  <Route path="/leaderboard" element={<Leaderboard />} />
-                  <Route path="/achievements" element={<Achievements />} />
-                  <Route path="/shop" element={<Shop />} />
-                  <Route path="*" element={<NotFound />} />
-                </Routes>
-              </Suspense>
-            </main>
-            <Footer />
-          </div>
         </GameStateProvider>
       </ToastProvider>
     </ErrorBoundary>

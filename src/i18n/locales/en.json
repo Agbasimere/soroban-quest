@@ -83,6 +83,14 @@
     "done": "Done",
     "noResults": "No missions found matching your criteria."
   },
+  "theoryQuest": {
+    "submit": "Submit answer",
+    "correct": "Correct!",
+    "incorrect": "Not quite.",
+    "correctToast": "Answer is correct!",
+    "incorrectToast": "Try again — review the explanation.",
+    "completed": "This theory quest has already been completed."
+  },
   "home": {
     "badge": "✨ Zero setup • No wallet needed • Open source",
     "title": {

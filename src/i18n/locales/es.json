@@ -83,6 +83,14 @@
     "done": "Hecho",
     "noResults": "No se encontraron misiones que coincidan con tus criterios."
   },
+  "theoryQuest": {
+    "submit": "Enviar respuesta",
+    "correct": "¡Correcto!",
+    "incorrect": "No del todo.",
+    "correctToast": "¡Respuesta correcta!",
+    "incorrectToast": "Inténtalo de nuevo — revisa la explicación.",
+    "completed": "Esta teoría ya ha sido completada."
+  },
   "home": {
     "badge": "✨ Sin configuración • Sin billetera • Código abierto",
     "title": {
