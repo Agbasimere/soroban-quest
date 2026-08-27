@@ -14,7 +14,9 @@
     "test:visual": "npx playwright test --project=visual-chromium",
     "test:visual:update": "npx playwright test --project=visual-chromium --update-snapshots",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "lint:fix": "eslint . --fix",
+    "mission:new": "node scripts/create-mission.mjs",
+    "mission:validate": "node scripts/validate-missions.mjs"
   },
   "dependencies": {
     "@monaco-editor/react": "^4.6.0",
