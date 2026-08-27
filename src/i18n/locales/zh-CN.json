@@ -107,11 +107,6 @@
       "beginJourney": "🚀 开始旅程",
       "viewMissionMap": "🗺️ 查看任务地图"
     },
-    "stats": {
-      "missions": "任务",
-      "totalXp": "总 XP",
-      "backendNeeded": "需要后端"
-    },
     "howItWorks": {
       "title": "它如何运作",
       "subtitle": "从零到 Soroban 精通的旅程，全部在浏览器中完成。"
@@ -420,64 +415,169 @@
     "notFound": {
       "title": "未找到任务",
       "body": "任务 \"{{id}}\" 不存在。",
-      "back": "返回任务列表"
+      "back": "← 返回任务地图"
     },
     "editor": {
-      "themeLabel": "主题",
-      "reset": "重置",
-      "hint": "提示",
-      "solution": "解答",
-      "compile": "编译",
-      "compileAndRun": "编译并运行",
-      "run": "运行测试",
-      "running": "运行中...",
-      "compiling": "编译中..."
+      "reset": "↺ 重置",
+      "hint": "💡 提示",
+      "solution": "👁️ 解答",
+      "run": "▶ 运行测试",
+      "running": "运行中…",
+      "compile": "⚙️ 编译并运行",
+      "compiling": "编译中…",
+      "themeLabel": "编辑器主题"
     },
     "terminal": {
-      "title": "终端",
-      "placeholder": "点击“运行测试”开始验证你的合约。",
-      "runningChecks": "正在运行检查...",
-      "alreadyCompleted": "此任务已完成。",
-      "compiling": "正在编译合约...",
-      "compileEngineWasm": "使用 WebAssembly 引擎进行编译。",
-      "compileFallback": "使用回退编译器。",
-      "compileError": "编译失败：{{message}}",
-      "compileOk": "编译成功（{{ms}} ms）",
-      "compileFailed": "编译失败，发现 {{errors}} 个错误。",
-      "summary": "检查已完成。"
+      "title": "测试输出",
+      "placeholder": "点击“运行测试”来验证你的代码…",
+      "runningChecks": "🔍 正在运行验证检查…",
+      "alreadyCompleted": "🏅 已完成，不再奖励额外 XP。",
+      "compiling": "⚙️ 正在编译合约…",
+      "compileOk": "✅ 编译成功，用时 {{ms}}ms",
+      "compileFailed": "❌ 编译失败（{{errors}} 个错误）",
+      "compileFallback": "ℹ️ 正在使用浏览器内置分析器（真实 WASM 工具链尚未加载）。",
+      "compileEngineWasm": "🦀 已使用 Soroban WASM 工具链编译。",
+      "compileError": "❌ 编译器错误：{{message}}"
     },
     "status": {
-      "checking": "正在检查...",
-      "passing": "{{passed}} / {{total}} 通过",
-      "allPassing": "全部通过（{{passed}} / {{total}}）",
-      "note": "实时验证"
+      "checking": "正在检查…",
+      "passing": "{{passed}}/{{total}} 项检查通过",
+      "allPassing": "{{passed}}/{{total}} 项检查通过 ✓",
+      "note": "实时检查 · 点击运行测试执行完整套件"
+    },
+    "securityNotes": {
+      "title": "安全提示",
+      "advisory": "仅供参考。这些提示不会阻止任务完成。",
+      "count": "{{count}}",
+      "line": "第 {{line}} 行",
+      "rules": {
+        "missingAuth": {
+          "title": "状态变更前缺少授权",
+          "body": "{{functionName}} 在写入存储前没有先调用 require_auth()。"
+        },
+        "uncheckedArithmetic": {
+          "title": "代币数量使用未检查的算术运算",
+          "body": "{{functionName}} 对代币数量使用了包装或乘法运算，且未调用检查方法。"
+        },
+        "reentrancy": {
+          "title": "写入状态前进行外部调用",
+          "body": "{{functionName}} 在写入存储前进行了外部调用。请先更新状态。"
+        },
+        "storageUnwrap": {
+          "title": "存储读取使用 unwrap",
+          "body": "{{functionName}} 对用户提供的键执行了存储读取 unwrap。缺少的值会导致程序崩溃。"
+        }
+      }
     },
     "toasts": {
-      "validated": "验证通过！",
-      "validationFailed": "验证失败。",
-      "hintUnlocked": "已解锁提示 {{index}}。",
-      "codeReset": "代码已重置。",
-      "solutionLoaded": "解答已加载。"
+      "validated": "任务参数验证通过！",
+      "validationFailed": "验证失败。请检查终端。",
+      "hintUnlocked": "提示 {{index}} 已解锁",
+      "codeReset": "代码已重置为模板",
+      "solutionLoaded": "解答已加载到编辑器"
     },
-    "replay": {
-      "header": "会话回放",
-      "body": "回顾你上一次完成任务的步骤。",
-      "start": "开始回放"
-    },
+    "hint": { "label": "💡 提示 {{index}}：" },
     "victory": {
-      "iconLabel": "胜利",
       "title": "任务完成！",
       "youCompleted": "你已完成",
-      "levelUp": "恭喜！你已达到等级 {{level}}：{{rank}}",
-      "badgeEarnedOne": "获得了 1 个新徽章！",
-      "badgeEarnedMany": "获得了 {{count}} 个新徽章！",
-      "next": "下一任务",
-      "map": "返回地图",
-      "watchReplay": "观看回放"
+      "xpGained": "+{{xp}} XP",
+      "levelUp": "🎉 升级！你现在是等级 {{level}} — {{rank}}",
+      "badgeEarnedOne": "🏅 获得新徽章！",
+      "badgeEarnedMany": "🏅 获得新徽章！",
+      "next": "下一任务 →",
+      "map": "任务地图",
+      "iconLabel": "奖杯图标 — 任务完成"
+    },
+    "replay": {
+      "header": "📹 观看你的解答",
+      "body": "逐步回顾你的解题过程。",
+      "start": "▶️ 开始回放"
     },
     "okashi": {
-      "button": "发送到 Okashi",
-      "help": "分享你的代码和调试状态到 Okashi 观察环境。"
+      "button": "🚀 在 Okashi 上尝试 — 编译并部署",
+      "help": "在新标签页打开 okashi.dev。你的代码会复制到剪贴板，可粘贴到那里使用真实的 Soroban 编译器编译并部署到测试网。"
     }
+  },
+  "skillTree": {
+    "title": "Soroban 技能树",
+    "subtitle": "追踪你对 Soroban 智能合约概念的掌握程度",
+    "overall": "已掌握 {{unlocked}}/{{total}} 个概念",
+    "categoryProgress": "{{unlocked}}/{{total}}",
+    "categories": {
+      "Core": { "title": "核心概念", "description": "Soroban 的基础构件" },
+      "Storage": { "title": "存储与状态", "description": "管理持久化数据" },
+      "Types": { "title": "数据类型", "description": "使用不同的数据类型" },
+      "Auth": { "title": "授权", "description": "访问控制与安全性" },
+      "Events": { "title": "事件", "description": "发送并处理合约事件" },
+      "Protocols": { "title": "协议", "description": "现实世界中的 DeFi 协议模式" },
+      "DeFi": { "title": "DeFi", "description": "去中心化金融基础要素" }
+    },
+    "tooltip": { "chapter": "第 {{chapter}} 章" },
+    "modal": {
+      "taughtIn": "讲解任务：{{title}}",
+      "chapterLabel": "章节：",
+      "difficultyLabel": "难度：",
+      "xpLabel": "XP 奖励：",
+      "learningGoal": "学习目标：",
+      "completed": "✅ 已完成",
+      "notCompleted": "🔒 尚未完成",
+      "startMission": "开始任务",
+      "notCovered": "可用任务尚未涵盖此概念。"
+    }
+  },
+  "ranks": {
+    "0": "新手", "1": "学徒", "2": "抄写员", "3": "程序员", "4": "架构师",
+    "5": "哨兵", "6": "守护者", "7": "大师守护者", "8": "长老", "9": "启明星", "10": "星际主宰"
+  },
+  "difficulty": { "beginner": "初级", "intermediate": "中级", "advanced": "高级" },
+  "badges": {
+    "first_contract": { "name": "首份合约", "description": "完成你的第一个任务" },
+    "triple_threat": { "name": "三重威胁", "description": "完成 3 个任务" },
+    "five_star": { "name": "五星成就", "description": "完成 5 个任务" },
+    "completionist": { "name": "全能完成者", "description": "完成所有任务" },
+    "level_3": { "name": "冉冉新星", "description": "达到等级 3" },
+    "level_5": { "name": "星际守护者", "description": "达到等级 5" },
+    "xp_1000": { "name": "XP 收藏家", "description": "获得 1000 XP" },
+    "speed_demon": { "name": "疾速达人", "description": "首次尝试就完成任务" },
+    "chapter_1": { "name": "觉醒", "description": "完成第 1 章的所有任务" },
+    "chapter_2": { "name": "记忆守护者", "description": "完成第 2 章的所有任务" },
+    "chapter_3": { "name": "锻造大师", "description": "完成第 3 章的所有任务" },
+    "chapter_4": { "name": "数据架构师", "description": "完成第 4 章的所有任务" },
+    "chapter_5": { "name": "协议先锋", "description": "完成第 5 章的所有任务" },
+    "chapter_6": { "name": "生产大师", "description": "完成第 6 章的所有任务" },
+    "chapter_7": { "name": "安全哨兵", "description": "完成第 7 章的所有任务" }
+  },
+  "shop": {
+    "title": "商店",
+    "subtitle": "使用金币购买头像、增益和徽章",
+    "ariaCategories": "商店分类筛选",
+    "categories": { "all": "全部", "avatars": "头像", "boosts": "增益", "badges": "徽章" },
+    "items": {
+      "avatarPack1": "头像包 1", "avatarPack1Desc": "解锁 5 个新的头像选项",
+      "avatarPack2": "头像包 2", "avatarPack2Desc": "解锁 5 个专属头像选项",
+      "xpBoost": "XP 增益", "xpBoostDesc": "下一项任务获得双倍 XP",
+      "streakFreeze": "连续记录保护", "streakFreezeDesc": "保护你的连续记录免受一天遗漏影响",
+      "hintToken": "提示令牌", "hintTokenDesc": "揭示提示且不扣除 XP",
+      "premiumBadge": "高级徽章", "premiumBadgeDesc": "个人资料专属高级徽章"
+    },
+    "buy": "购买",
+    "purchased": "已购买",
+    "alreadyPurchased": "你已经拥有此物品",
+    "insufficientFunds": "金币不足，无法购买此物品",
+    "purchaseSuccess": "成功购买 {{item}}！",
+    "empty": "此分类中没有找到物品",
+    "ariaPurchase": "花费 {{price}} 金币购买 {{item}}",
+    "ariaPurchased": "{{item}} - 已购买"
+  },
+  "onboarding": {
+    "step1": { "title": "欢迎来到 Soroban Quest！", "body": "踏上游戏化学习之旅，掌握 Soroban 智能合约开发。完成任务、赚取 XP 和金币，并解锁成就。" },
+    "step2": { "title": "你的进度中心", "body": "导航栏显示你的等级、XP、金币余额和资料。使用它在任务、战役、个人资料、日志等页面之间导航。" },
+    "step3": { "title": "任务地图与任务", "body": "任务地图按章节展示所有任务。每项任务都提供 Soroban 编程挑战、故事、提示和自动验证。" },
+    "step4": { "title": "代码编辑器与验证", "body": "在内置 Monaco 编辑器中编写 Rust Soroban 代码。运行测试，将你的解答与验证模式进行比对。无需编译服务器！" },
+    "step5": { "title": "RPG 式成长", "body": "每完成一项任务即可获得 XP 和金币。升级以解锁新等级、章节和徽章。在商店使用金币购买外观物品和增益。" },
+    "dismiss": "知道了！",
+    "next": "下一步",
+    "prev": "返回",
+    "skip": "跳过教程"
   }
 }
