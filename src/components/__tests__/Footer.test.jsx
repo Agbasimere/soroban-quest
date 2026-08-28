@@ -71,7 +71,11 @@ function pathnameOf(href) {
 }
 
 function isKnownAppRoute(pathname) {
-  return KNOWN_APP_ROUTES.has(pathname) || pathname.startsWith("/mission/");
+  return (
+    KNOWN_APP_ROUTES.has(pathname) ||
+    pathname.startsWith("/mission/") ||
+    pathname.startsWith("/theory/")
+  );
 }
 
 describe("Footer", () => {
