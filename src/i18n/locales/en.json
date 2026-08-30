@@ -423,6 +423,10 @@
     "editor": {
       "reset": "↺ Reset",
       "hint": "💡 Hint",
+      "goldHint": "🪙 Hint ({{cost}} gold)",
+      "goldHintTitle": "Spend {{cost}} gold to instantly reveal the next hint",
+      "goldHintInsufficient": "Not enough gold — need {{cost}} to unlock this hint",
+      "goldHintUnlocked": "🪙 Hint (unlocked)",
       "solution": "👁️ Solution",
       "run": "▶ Run Tests",
       "running": "Running…",
@@ -476,6 +480,8 @@
       "validated": "Mission Parameters Validated!",
       "validationFailed": "Validation failed. Check terminal.",
       "hintUnlocked": "Hint {{index}} unlocked",
+      "hintGoldUnlocked": "Hint {{index}} unlocked for {{cost}} gold",
+      "hintInsufficientGold": "Not enough gold — need {{cost}} to unlock this hint",
       "codeReset": "Code reset to template",
       "solutionLoaded": "Solution loaded into editor"
     },
