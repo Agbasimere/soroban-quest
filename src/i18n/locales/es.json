@@ -106,9 +106,17 @@
       "viewMissionMap": "🗺️ Ver mapa de misiones"
     },
     "stats": {
-      "missions": "Misiones",
-      "totalXp": "XP total",
-      "backendNeeded": "Backend necesario"
+      "missionsCompleted": "{{count}}/{{total}} Misiones",
+      "xpEarned": "{{xp}} XP Ganados",
+      "goldEarned": "{{gold}} Oro",
+      "badgesUnlocked": "{{count}} Insignias",
+      "currentLevel": "Nivel {{level}} — {{rank}}",
+      "nextMission": "Siguiente Misión",
+      "continueFrom": "Continuar desde {{title}}",
+      "recentActivity": "Actividad Reciente",
+      "viewAll": "Ver Todo",
+      "quickStats": "Estadísticas Rápidas",
+      "streak": "Racha diaria"
     },
     "howItWorks": {
       "title": "Cómo funciona",
@@ -139,19 +147,6 @@
         "title": "Camino progresivo",
         "body": "Desde \"Hello World\" hasta contratos multi-firma. Cada misión se apoya en la anterior, creando una ruta estructurada hacia el dominio de Soroban."
       }
-    },
-    "stats": {
-      "missionsCompleted": "{{count}}/{{total}} Misiones",
-      "xpEarned": "{{xp}} XP Ganados",
-      "goldEarned": "{{gold}} Oro",
-      "badgesUnlocked": "{{count}} Insignias",
-      "currentLevel": "Nivel {{level}} — {{rank}}",
-      "nextMission": "Siguiente Misión",
-      "continueFrom": "Continuar desde {{title}}",
-      "recentActivity": "Actividad Reciente",
-      "viewAll": "Ver Todo",
-      "quickStats": "Estadísticas Rápidas",
-      "streak": "Racha diaria"
     }
   },
   "footer": {
